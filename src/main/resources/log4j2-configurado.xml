@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%d{HH:mm:ss.SSS} [%t] [%-5level %logger{36}] - %msg%n"/>
+        </Console>
+        <SMTP name="MailAppender" subject="Error Log"
+              to="diogo.dmoreira@gmail.com"
+              smtpDebug="true"
+              smtpProtocol="smtps"
+              smtpHost="smtp.gmail.com" smtpPort="465" bufferSize="50"
+              smtpUsername="tpraticas"
+              smtpPassword="ptr123456">
+        </SMTP>
+        <JDBC name="JDBCAppender" tableName="app_log">
+            <ConnectionFactory class="br.edu.ifpb.praticas.logger.jdbc.LogJDBCConnectionFactory"
+                               method="getConnection" />
+            <Column name="EVENT_ID" literal="nextval('app_log_sequence')"
+                    isUnicode="false" />
+            <Column name="EVENT_DATE" isEventTimestamp="true" isUnicode="false" />
+            <Column name="LEVEL" pattern="%level" isUnicode="false" />
+            <Column name="LOGGER" pattern="%logger" isUnicode="false" />
+            <Column name="MESSAGE" pattern="%message" isUnicode="false" />
+        </JDBC>
+        <File name="FileAppender" fileName="logs/app.log">
+            <PatternLayout>
+                <Pattern>%d{HH:mm:ss.SSS} [%t] [%-5level %logger{36}] - %msg%n</Pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="br.edu.ifpb.praticas" level="error"
+                additivity="true">
+            <AppenderRef ref="JDBCAppender" />
+        </Logger>
+        <Root level="error">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS app_log (
+	event_id INT PRIMARY KEY,
+	event_date TIMESTAMP,
+	level VARCHAR(10),
+	logger VARCHAR(255),
+	message VARCHAR(255)
+);
+
+CREATE SEQUENCE IF NOT EXISTS app_log_sequence START WITH 1;

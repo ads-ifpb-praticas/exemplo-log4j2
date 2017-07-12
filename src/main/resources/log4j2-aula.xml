@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="30">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%d{HH:mm:ss.SSS} [%t] [%level %logger:%line] - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="br.edu.ifpb.praticas.logger" level="debug">
+            <AppenderRef ref="Console" />
+        </Logger>
+        <Logger name="br.edu.ifpb.praticas" level="info">
+            <AppenderRef ref="Console" />
+        </Logger>
+        <Root level="error">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
